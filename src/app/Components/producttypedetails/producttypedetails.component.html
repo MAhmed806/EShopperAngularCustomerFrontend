@@ -1,0 +1,31 @@
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-5" style="margin-top:15px">
+        <div *ngFor="let item of producttype.ptypes">
+                <h4 style="text-align:center" class="text-primary ">{{item.productType}}</h4>
+                <hr />
+        </div>
+
+        <div class="row px-xl-5 pb-3">
+       
+                <a type="button" (click)="getdetails(product.id)" *ngFor="let product of producttype.products">
+                <div class="col-md-3  pb-2">
+                
+                    <div class="card product-item border-0 mb-4" style="height:auto">
+                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                            <img class="img-fluid w-100" src="{{product.image}}" alt="{{product.name}}">
+                        </div>
+                        <div class="card-body border-left border-right border-bottom text-center p-0 pt-4 pb-3" style="background-color:bisque;width:inherit">
+                            <h6 class="text-truncate mb-3">{{product.name}}</h6>
+                            <div class="d-flex justify-content-center">
+                                <h6>Rs.{{product.price}}</h6><h6 class="text-muted ml-2"></h6>
+                            </div>
+                        </div>
+                    </div>
+               
+
+                </div>
+            </a>
+
+            
+        </div>
+    </div>

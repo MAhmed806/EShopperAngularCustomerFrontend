@@ -1,0 +1,135 @@
+<div class="container-fluid p-4">
+    <h3 class="text-info">Order Details</h3>
+    <form >
+    <div class="p-4 rounded border row">
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-3">
+                <label>Order Id</label>
+            </div>
+            <div class="col-8">
+                <input value="{{order.id}}" class="form-control" readonly="readonly" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label> Customer Name</label>
+            </div>
+            <div class="col-8">
+                <input value="{{order.customerName}}"readonly="readonly" class="form-control" />
+            </div>
+            <span asp-validation-for="myorder.CustomerName" class="text-danger"></span>
+        </div>
+       
+        <div class="form-group row">
+            <div class="col-3">
+                <label> Order Date</label>
+            </div>
+            <div class="col-8">
+                <input value="{{order.orderDate}}" readonly="readonly" readonly="readonly" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label>Delivery Date</label>
+            </div>
+            <div class="col-8">
+                <input value="{{order.deliveryDate}}" readonly="readonly" class="form-control" />
+            </div>
+        </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label>Order Cost</label>
+                </div>
+                <div class="col-8">
+                    <input value="{{order.orderCost}}" readonly="readonly" readonly="readonly" class="form-control" />
+                </div>
+            </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label> Order Status</label>
+            </div>
+            <div class="col-8">
+                <input *ngIf="order.orderStatus=='Order Cancelled'" value="{{order.orderStatus}}" readonly="readonly" class="form-control text-danger" />
+                <input *ngIf="order.orderStatus=='Order Dispatched'" value="{{order.orderStatus}}" readonly="readonly" class="form-control" />
+                <input *ngIf="order.orderStatus=='Order Delivered'" value="{{order.orderStatus}}" readonly="readonly" class="form-control text-success" />
+                <input *ngIf="order.orderStatus=='Order Placed'" value="{{order.orderStatus}}" readonly="readonly" class="form-control text-dark" />
+                <input *ngIf="order.orderStatus=='Order Confirmed'" value="{{order.orderStatus}}" readonly="readonly" class="form-control text-dark" />
+
+
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label>Payment Method</label>
+            </div>
+            <div class="col-8">
+                <input value="{{order.paymentMethod}}" readonly="readonly" readonly="readonly" class="form-control" />
+            </div>
+        </div>
+        <div *ngIf="order.paymentDetails!=null && order.paymentDetails.chargeStatus!='refunded'" class="form-group row">
+            <div class="col-3">
+                <label>Payment Status</label>
+            </div>
+            <div class="col-8">
+                <input value="{{order.paymentDetails.chargeStatus}}" readonly="readonly" readonly="readonly" class="form-control" />
+            </div>
+        </div>
+        <div *ngIf="order.paymentDetails!=null && order.paymentDetails.chargeStatus=='refunded'" class="form-group row">
+            <div class="col-3">
+                <label>Refund Status</label>
+            </div>
+            <div class="col-8">
+                <input value="{{order.paymentDetails.refundStatus}}" readonly="readonly" readonly="readonly" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+            </div>
+            <div class="col-8">
+                <a href="" class="btn btn-success text-secondary" style="margin-right:10px">Home</a>
+                <!-- <a *ngIf="order.orderStatus=='Order Dispatched'||order.orderStatus=='Order Delivered'||order.orderStatus=='Order Cancelled'" title="Order Either Delivered,Dispatched for Delivery or Cancelled" class="btn btn-danger">Cancel Order</a> -->
+                <a type="button" *ngIf="order.orderStatus=='Order Placed'||order.orderStatus=='Order Confirmed'" asp-action="CancelOrder" (click)="cancel(order.id)" class="btn btn-danger">Cancel Order</a>
+                <!-- <a type="button" *ngIf="order.orderStatus=='Order Cancelled'" (click)="refundorderamount(order.id)" class="btn btn-danger" style="margin-right:10px">Refund Amount</a> -->
+                <a class="text-success">{{refundstatus}}</a>        
+            </div>
+        </div>
+        <div class="form-group">
+        </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-3">
+    </div>
+</div>
+    </form>
+<div class="p-4 rounded border row">
+    <br />
+    
+    <h4 class="text-primary">Order Products</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Product Id</td>
+                <td>Product Name</td>
+                <td>Product Color</td>
+                <td>Product Image</td>
+                <td>Product Quantity</td>
+                <td>Product Type</td>
+            </tr>
+        </thead>
+        <tbody>     
+                <tr *ngFor="let item of order.orderDetails">
+                    <td>{{item.product.id}}</td>
+                    <td><a type="button" (click)="gotoproddetail(item.product.id)">{{item.product.name}}</a></td>
+                    <td>{{item.product.pColor}}</td>
+                    <td><img src="{{item.product.image}}" height="100" width="auto"></td>
+                    <td >{{item.productQuantity}}</td>
+                    <td>{{item.product.productTypes.productType}}</td>
+                </tr>
+        </tbody>
+    </table>
+
+</div>
+</div>

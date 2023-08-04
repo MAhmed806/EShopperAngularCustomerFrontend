@@ -1,0 +1,37 @@
+ <!-- Topbar Start -->
+ <div class="container-fluid">
+    <div class="container-fluid border border-secondary" style="padding:30px;align-items: center;width: 800px;margin-top:20px;">
+          <form [formGroup]="loginform" (submit)="Submit()">
+            <h5 *ngIf="errormessage!=''" class="text-danger">{{errormessage}}</h5>
+            <h5 *ngIf="successmessage!=''" class="text-success">{{successmessage}}</h5>
+            <div class="input-group ">
+              <label style="padding:5px">User Email:</label>
+              <input class="form-control" style="width:600px" type="email" formControlName="Email">
+              <span *ngIf="!loginform.controls.Email.valid && loginform.controls.Email.touched" class="text-danger">Please Enter a Valid Email Address</span>
+            </div>
+            <div class="input-group">
+              <label style="padding:5px">Password:</label>
+              <input [type]="fieldTextType ? 'text' : 'password'"
+              class="form-control"
+              formControlName="Password">
+              <div class="input-group-append"  type="button" (click)="toggleFieldTextType()">
+                <span class="input-group-text">
+                  <i type="button" class="fa" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"></i>
+                </span>
+             </div>
+          </div>
+          <span *ngIf="!loginform.controls.Password.valid && loginform.controls.Password.touched" class="text-danger">Password Must Contain 8 or More Characters</span>
+            <div class="input-group">
+              <label style="padding-top:5px;">Remember Me</label><input formControlName="RememberMe" style="width:15px;" checked type="checkbox">
+            </div>
+            <div class="input-group justify-content-between">
+              <a type="button" class="text-primary"> Forgot Password?</a>
+              <a href="/register" type="button" class="text-primary">New User? Register</a>
+            </div>
+            <div class="input-group">
+              <button type="submit" class="btn" [ngClass]="{'btn-success':loginform.valid,'btn-danger':!loginform.valid}" [disabled]="!loginform.valid">Login</button>
+            </div>
+          </form>
+    </div>
+</div>
+

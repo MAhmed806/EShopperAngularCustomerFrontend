@@ -1,0 +1,68 @@
+ <!-- Topbar Start -->
+ <div class="container-fluid">
+    <div class="container-fluid border border-secondary" style="padding:30px;align-items: center;width: 800px;margin-top:20px;">
+          <form [formGroup]="registerform" style="justify-content: center;" (submit)="Submit()"><div>
+            <h5 *ngIf="errormessage!=''" class="text-danger">{{errormessage}}</h5>
+            <h5 *ngIf="successmessage!=''" class="text-success">{{successmessage}}</h5>
+          </div>
+            
+
+            <div class="input-group ">
+                <label style="padding:5px">First Name:</label>
+                <input class="form-control" style="width:600px" type="text" formControlName="FirstName" placeholder="Enter your First Name">
+                <span *ngIf="!registerform.controls.FirstName.valid && registerform.controls.FirstName.touched" class="text-danger">First Name Cannot be empty</span>
+            </div>
+            <div class="input-group ">
+                <label style="padding:5px">Last Name:</label>
+                <input class="form-control" style="width:600px" type="text" formControlName="LastName" placeholder="Enter your Last Name">
+                <span *ngIf="!registerform.controls.LastName.valid && registerform.controls.LastName.touched" class="text-danger">Last Name Cannot be empty</span>
+             </div>
+             <div class="input-group ">
+                <label style="padding:5px">Phone #:</label>
+                <input type="number" class="form-control" style="width:600px" type="text" formControlName="PhoneNumber" placeholder="Enter Your Phone Number">
+                <span *ngIf="!registerform.controls.PhoneNumber.valid && registerform.controls.PhoneNumber.touched" class="text-danger">Enter a Valid Phone Number</span>
+             </div>
+            <div class="input-group ">
+              <label style="padding:5px">User Email:</label>
+              <input class="form-control" style="width:600px" type="email" formControlName="Email" placeholder="Enter a Valid User Email">
+              <span *ngIf="!registerform.controls.Email.valid && registerform.controls.Email.touched" class="text-danger">Please Enter a Valid Email Address</span>
+            </div>
+            <div class="input-group">
+              <label style="padding:5px">Password:</label>
+              <input [type]="fieldTextType ? 'text' : 'password'"
+              class="form-control"
+              formControlName="PasswordHash">
+              <div class="input-group-append" type="button" (click)="toggleFieldTextType()">
+                <span class="input-group-text">
+                  <i type="button" class="fa" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"></i>
+                </span>
+             </div>
+          </div><span *ngIf="!registerform.controls.PasswordHash.valid && registerform.controls.PasswordHash.touched" class="text-danger">Password Must Contain 8 or More Characters</span>
+          <div class="input-group">
+            <label style="padding:5px">Confirm Password:</label>
+            <input [type]="fieldTextType1 ? 'text' : 'password'"
+            class="form-control"
+            formControlName="ConfirmPassword">
+            <div class="input-group-append" type="button" (click)="toggleFieldTextType1()">
+              <span class="input-group-text">
+                <i type="button" class="fa" [ngClass]="{'fa-eye-slash': !fieldTextType1,'fa-eye': fieldTextType1}"></i>
+              </span>
+           </div>
+        </div>
+          
+          <span *ngIf="registerform.controls.ConfirmPassword.valid && registerform.value.PasswordHash==registerform.value.ConfirmPassword" class="text-success">Passwords Match</span>
+          <span *ngIf="registerform.value.PasswordHash!=registerform.value.ConfirmPassword && registerform.controls.ConfirmPassword.touched" class="text-danger">Passwords Do Not Match</span>
+
+            <div class="input-group justify-content-between">
+              <a type="button" class="text-primary"></a>
+              <a href="/login" type="button" class="text-primary">Already a User? Login</a>
+            </div>
+            <div class="input-group">
+              <button type="submit" class="btn" [ngClass]="{'btn-success':registerform.valid,'btn-danger':!registerform.valid}"[disabled]="" >Register</button>
+            </div>
+          </form>
+    </div>
+
+</div>
+
+

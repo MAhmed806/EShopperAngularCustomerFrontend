@@ -1,0 +1,24 @@
+<div class="container" style="width:40%;border-block:medium">
+    <form *ngIf="costcheck&&abc.cost<=900000" id="payment-form" method="post">
+            <button *ngIf="!check" (click)="gotoaddcard()"> Add a Card To Continue</button>
+            <div *ngIf="check"  class="col-12">
+                <h6>Choose a Card To Pay with</h6>     
+                <i class='bi bi-credit-card px-1'></i>
+            
+                <select class="border-0" [(ngModel)]="selectedcardid" name="selectedcardid" autofocus>
+                <option *ngFor="let card of Responce.cards"  value="{{card.id}}">*****{{card.last4}}   {{card.expMonth}}/{{card.expYear}}</option>
+                </select>
+                <br>
+                <span *ngIf="selectedcardid==null" class="text-danger" >Select a Card To Proceed</span><br> 
+                <a class="btn btn-secondary" (click)="gotoaddcard()">Add New Card</a>
+                <button  (click)="submit()" type="submit" class="btn btn-success" [disabled]="selectedcardid==null">Pay Rs.{{abc.cost}}</button>
+            </div>
+    </form>
+    <h3 *ngIf="abc.cost>900000" class="text-danger">Order Above Cost Limit Not Allowed</h3>
+    <div *ngIf="!costcheck">
+        <span  class="text-danger">Your Cart is Empty Please Add an Item to Proceed to Payment</span><br>
+        <a class="btn btn-primary text-dark" style="width: 100%" href="/shop">Go To Shop</a>
+    </div>
+  </div>  
+ 
+

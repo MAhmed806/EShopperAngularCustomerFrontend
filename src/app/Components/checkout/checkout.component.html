@@ -1,0 +1,97 @@
+<div class="container-fluid">
+<form [formGroup]="myform" (submit)="Submit()">
+    <div class="p-5 rounded row">
+       
+        <div class="col-lg-4">
+            <h4 class="text-primary">Enter Your Details</h4>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Customer Name</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" formControlName="CustomerName" class="form-control" required >
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Customer Phone #</label>
+                </div>
+                <div class="col-7">
+                    <input formControlName="CustomerPhone" class="form-control" required  >
+                
+                </div>
+            </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                    <label>Customer Address</label>
+                    </div>
+                    <div class="col-7">
+                    <input type="text"formControlName="CustomerAddress" class="form-control" required >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                    <label>Customer Email Address</label>
+                    </div>
+                    <div class="col-7">
+                    <input type="email" formControlName="CustomerEmail" class="form-control" required email >
+                    </div>
+                </div> 
+        </div>
+        <div class="col-lg-3" style="padding-right: 20px;">
+            <div class="card d-flex justify-content-end border-primary mb-0 ">
+                <div class="card-header border-0 bg-primary" style="width:inherit">
+                    <h4 class="font-weight-semi-bold mb-1 ">Order Total</h4>
+                    
+                </div>
+                <div class="card-body" style="height:auto; overflow-y: auto;width:inherit;padding:10px">
+                    <h5 class="font-weight-medium mb-0 justify-content-end">Products</h5>
+                        <div *ngFor="let item of cartitems" class="d-flex justify-content-between mb-0">
+                            <p>{{item.Name}}({{item.Quantity}})</p>
+                            <p>Rs.{{item.Quantity*item.Price}}</p>
+                            </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent"style="width:inherit">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Subtotal</h6>
+                        <h6 class="font-weight-medium">Rs.{{subtotal}}</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Shipping</h6>
+                        <h6 class="font-weight-medium">Rs.{{shipping}}</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold">Rs.{{grandtotal}}</h5>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="col-lg-2">
+            <div class="card border-primary mb-1">
+                <div class="card-header bg-primary border-0" style="width:inherit">
+                    <h4 class="font-weight-semi-bold m-0">Payment Method</h4>
+                </div>
+                <div class="card-body mb-1" style="width:inherit">
+
+                        <div class="col-1" style="width:inherit">
+                            <select formControlName="PaymentMethod">
+                                <option value="Credit Card" selected>Credit Card</option>
+                                <option value="Cash On Delivery">Cash On Delivery </option>
+                            </select>
+                            <br><br>
+                        </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent" style="width:inherit">
+
+                        <a type="button" (click)="gotoshop()" *ngIf="cartitems.length<=0"  class="btn btn-block btn-outline-danger font-weight-bold">&#60;&#60;&#60;&#60;Back to Shopping</a>
+                        <input *ngIf="cartitems.length>0 && myform.valid && grandtotal<=900000" type="submit" class="btn btn-block btn-outline-success font-weight-bold py-3" value="&#62;&#62;&#62;&#62;Place Order&#60;&#60;&#60;&#60;" />
+                        <p *ngIf="!myform.valid&&grandtotal<900000" class="text-danger text ">Please Complete The Form Properly </p>
+                        <span *ngIf="grandtotal>900000" class="text-danger">Cost Can not be Above Specified Limit</span>
+                    </div>
+            </div>
+        </div>
+       
+    </div>
+</form>
+</div>

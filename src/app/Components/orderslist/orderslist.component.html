@@ -1,0 +1,24 @@
+<div class="container-fluid" style="padding:30px;">
+    <table datatable [dtOptions]="dtoptions" [dtTrigger]="dttrigger" class="table table-bordered table-striped" id="OrderTableCustomer">
+       <thead>
+          <tr>
+             <th scope="col">Order ID</th>
+             <th scope="col">Customer Name</th>
+             <th scope="col">Customer Email</th>
+             <th scope="col">Order Date</th>
+             <th scope="col">Delivery Date</th>
+             <th scope="col">Order Status</th>
+          </tr>
+       </thead>
+       <tbody>
+                     <tr *ngFor="let order of orders"   type="button" (click)="gotodetail(order.id)">
+                       <td>{{order.id}}</td>
+                         <td>{{order.customerName}}</td>
+                         <td>{{order.customerEmail}}</td>
+                         <td>{{order.orderDate}}</td>
+                         <td>{{order.deliveryDate}}</td>
+                         <td>{{order.orderStatus}}</td>
+                     </tr>
+       </tbody>
+     </table>
+ </div>
